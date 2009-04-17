@@ -1,0 +1,15 @@
+belgium:
+  name_nl: België
+  name_fr: Belgique
+  name_en: Belgium
+  description_nl: Koninkrijk België
+  description_fr: Royaume de Belgique
+  description_en: Kingdom of Belgium
+  
+holland:
+  name_nl: Nederland
+  name_fr: Pays-Bas
+  name_en: Netherlands
+  description_nl: Koninkrijk der Nederlanden
+  description_fr: Royaume des Pays-Bas
+  description_en: Kingdom of the Netherlands
