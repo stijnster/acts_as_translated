@@ -38,7 +38,7 @@ module ActsAsTranslated
       result.sort
     end
     
-    def respond_to?(field)
+    def respond_to?(field, include_priv = false)
       return true if translated_field_exists(field)
       super
     end

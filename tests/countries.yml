@@ -5,6 +5,7 @@ belgium:
   description_nl: Koninkrijk België
   description_fr: Royaume de Belgique
   description_en: Kingdom of Belgium
+  position: 1
   
 holland:
   name_nl: Nederland
@@ -13,3 +14,4 @@ holland:
   description_nl: Koninkrijk der Nederlanden
   description_fr: Royaume des Pays-Bas
   description_en: Kingdom of the Netherlands
+  position: 2

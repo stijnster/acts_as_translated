@@ -6,7 +6,7 @@ require 'active_record'
 
 require "#{File.dirname(__FILE__)}/../init"
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
 def setup_db
   ActiveRecord::Schema.define(:version => 1) do
@@ -19,6 +19,7 @@ def setup_db
       t.column :description_en, :text
       t.column :created_at, :datetime      
       t.column :updated_at, :datetime
+      t.column :position, :integer
     end
   end
 end
@@ -39,6 +40,8 @@ end
 class Country < ActiveRecord::Base
   acts_as_translated :name
   acts_as_translated :description
+  
+  default_scope :order => 'position'
 end
 
 class TranslatedTest < Test::Unit::TestCase
