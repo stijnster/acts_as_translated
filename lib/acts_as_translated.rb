@@ -1,3 +1,5 @@
+require "acts_as_translated/version"
+
 module ActsAsTranslated
   def self.included(base)
     class << base
