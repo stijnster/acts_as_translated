@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = ActsAsTranslated::VERSION
   spec.authors       = ["Stijn Mathysen"]
   spec.email         = ["stijn@skylight.be"]
-  spec.summary       = %q{TODO: This acts_as extension allows easy attribute translation.}
+  spec.summary       = %q{This acts_as extension allows easy attribute translation.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
