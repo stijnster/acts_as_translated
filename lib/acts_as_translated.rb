@@ -52,6 +52,6 @@ module ActsAsTranslated
   end
 end
 
-class ActiveRecord::Base
-  include ActsAsTranslated
-end
+# class ActiveRecord::Base
+#   include ActsAsTranslated
+# end

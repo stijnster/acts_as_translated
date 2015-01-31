@@ -1,10 +1,11 @@
-require 'test/unit'
+require 'minitest'
 
 require 'rubygems'
+
 gem 'activerecord', '>= 1.15.4.7794'
 require 'active_record'
 
-require "#{File.dirname(__FILE__)}/../init"
+require "#{File.dirname(__FILE__)}/../lib/acts_as_translated"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
@@ -41,7 +42,7 @@ class Country < ActiveRecord::Base
   acts_as_translated :name
   acts_as_translated :description
   
-  default_scope :order => 'position'
+  #default_scope :order => 'position'
 end
 
 class TranslatedTest < Test::Unit::TestCase
