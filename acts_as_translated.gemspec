@@ -8,17 +8,18 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Stijn Mathysen"]
   spec.email         = ["stijn@skylight.be"]
   spec.summary       = %q{This acts_as extension allows easy attribute translation.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/stijnster/acts_as_translated"
   spec.license       = "MIT"
+  spec.description   = %q{ActsAsTranslated is an acts_as for ActiveRecord that allows easy attribute translation.}
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'activerecord', '>= 3.0.0'
+  spec.add_dependency 'activerecord', '~> 3.0'
 
-  spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'minitest', '~> 5.8.0'
+  spec.add_development_dependency 'sqlite3', '~> 0'
+  spec.add_development_dependency 'rake', '~> 0'
+  spec.add_development_dependency 'minitest', '~> 5.8'
 end
