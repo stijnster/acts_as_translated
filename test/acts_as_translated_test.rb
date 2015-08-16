@@ -77,7 +77,7 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 'Netherlands', Country.last.name_en
   end
 
-  def test_translated_name
+  def test_translated_attributes
     @belgium = Country.first
     @netherlands = Country.last
 
@@ -107,6 +107,13 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 'Netherlands', @netherlands.name
     assert_equal 'Kingdom of Belgium', @belgium.description
     assert_equal 'Kingdom of the Netherlands', @netherlands.description
+  end
+
+  def test_translated_field_exists
+    @belgium = Country.first
+
+    assert @belgium.translated_field_exists('name')
+    refute @belgium.translated_field_exists('position')
   end
 
 end
