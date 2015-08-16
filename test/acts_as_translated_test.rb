@@ -109,11 +109,13 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 'Kingdom of the Netherlands', @netherlands.description
   end
 
-  def test_translated_field_exists
-    @belgium = Country.first
+  def test_class_helpers
+    @country = Country.first
 
-    assert @belgium.translated_field_exists('name')
-    refute @belgium.translated_field_exists('position')
+    assert @country.translated_field_exists('name')
+    refute @country.translated_field_exists('position')
+
+    assert_equal %w(description_en description_fr description_nl name_en name_fr name_nl), @country.translated_fields_to_attributes
   end
 
 end
