@@ -3,7 +3,7 @@ require 'acts_as_translated/version'
 
 module ActsAsTranslated
 
-  require 'acts_as_tree/railtie' if defined? Rails::Railtie
+  require 'acts_as_translated/railtie' if defined? Rails::Railtie
 
   def self.included(base)
 
