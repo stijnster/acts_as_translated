@@ -1,12 +1,12 @@
 #!/usr/bin/env rake
 require "bundler/gem_tasks"
- 
+
 require 'rake/testtask'
- 
-Rake::TestTask.new do |t|
-  t.libs << 'lib/acts_as_translated'
-  t.test_files = FileList['test/lib/acts_as_translated/*_test.rb']
-  t.verbose = true
+
+desc "Run the tests."
+task :test do
+  $: << "lib" << "test"
+  Dir["test/*_test.rb"].each { |f| require f[5..-4] }
 end
- 
+
 task :default => :test
