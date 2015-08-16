@@ -53,8 +53,7 @@ end
 class Country < ActiveRecord::Base
 	include ActsAsTranslated
 
-  acts_as_translated :name
-  acts_as_translated :description, default: :nl
+  acts_as_translated :name, :description, default: :nl
   acts_as_translated :slug
 end
 
@@ -79,6 +78,13 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 2, Country.count
     assert_equal 'Belgium', Country.first.name_en
     assert_equal 'Netherlands', Country.last.name_en
+  end
+
+  def test_translated_fields
+    assert_instance_of Hash, Country.translated_attributes
+    assert_equal :nl, Country.translated_attributes[:name]
+    assert_equal :nl, Country.translated_attributes[:description]
+    assert_equal :en, Country.translated_attributes[:slug]
   end
 
   # def test_translated_attributes

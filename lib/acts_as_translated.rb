@@ -8,8 +8,7 @@ module ActsAsTranslated
   def self.included(base)
 
     class << base
-      attr_accessor :language
-      attr_accessor :translated_fields
+      attr_accessor :translated_attributes
     end
 
     base.extend(ClassMethods)
@@ -17,14 +16,19 @@ module ActsAsTranslated
 
   module ClassMethods
 
-    def acts_as_translated(fields, options = {})
-      self.language = options[:default] || 'en'
-      self.translated_fields = Array.new if self.translated_fields.blank?
-      self.translated_fields << fields
-      self.translated_fields.flatten!
-      class_eval do
-        include InstanceMethods
+    def acts_as_translated(*args, default: :en)
+      self.translated_attributes ||= {}
+
+      args.each do |field|
+        self.translated_attributes[field.to_sym] = default.to_sym
       end
+
+      # self.translated_fields = Array.new if self.translated_fields.blank?
+      # self.translated_fields << fields
+      # self.translated_fields.flatten!
+      # class_eval do
+      #   include InstanceMethods
+      # end
     end
 
   end
