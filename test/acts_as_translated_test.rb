@@ -221,4 +221,14 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 'Custom ES method', @belgium.custom
   end
 
+  def test_existing_method_names_should_fail
+    Country.acts_as_translated(:some_method_name_that_doesnt_exist)
+    assert_raises RuntimeError do
+      Country.acts_as_translated(:id)
+    end
+    assert_raises RuntimeError do
+      Country.acts_as_translated(:send)
+    end
+  end
+
 end

@@ -20,6 +20,9 @@ module ActsAsTranslated
 
       class_eval do
         args.each do |attribute|
+
+          raise "The method #{attribute} already exists for #{self}" if self.instance_methods(true).include?(attribute)
+
           define_method attribute do
             self.class.acts_as_translated_attribute(self, attribute, I18n.locale, default: default)
           end
@@ -30,7 +33,7 @@ module ActsAsTranslated
     def acts_as_translated_attribute(object, name, locale, default: :en)
       attribute = "#{name}_#{locale}".to_sym
 
-      if @cached_translated_attributes.member?(attribute)
+      if @cached_translated_attributes.include?(attribute)
         return object.send attribute
       end
 
