@@ -17,8 +17,11 @@ module ActsAsTranslated
 
     def acts_as_translated(*args, default: :en)
 
-      # Support old style coded array attributes
-      args = args.first if args.first.instance_of? Array
+      # Support old style coded array attributes, for now
+      if args.first.instance_of? Array
+        args = args.first
+        Kernel.warn "[DEPRECATION] ActsAsTranslated will no longer support array-styles options in the future. Please check the documentation."
+      end
 
       @cached_translated_attributes ||= []
 

@@ -20,7 +20,9 @@ Create a class;
 
 ```
 class Country < ActiveRecord::Base
+
   acts_as_translated :name # optional, pass in default fallback locale; default: :nl
+
 end
 ```
 
@@ -36,6 +38,28 @@ In your bundler Gemfile
 
 ```
 gem 'acts_as_translated', '~> 1.0'
+```
+
+## Deprication warnings
+
+To transition smoothly from the previous versions of acts_as_translated, the gem will currently support array styled definitions, as such;
+
+```
+class Country < ActiveRecord::Base
+
+  acts_as_translated [:name, :description]
+
+end
+```
+
+But this will be removed in future versions as the preferred way is to write;
+
+```
+class Country < ActiveRecord::Base
+
+  acts_as_translated :name, :description
+
+end
 ```
 
 ## History
