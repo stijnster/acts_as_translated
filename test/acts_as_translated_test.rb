@@ -134,45 +134,69 @@ class ActsAsTranslatedTest < Minitest::Test
       Country.acts_as_translated_attribute(@country, :position, :es)
     end
   end
-  # def test_translated_attributes
-  #   @belgium = Country.first
-  #   @netherlands = Country.last
 
-  #   # test default language
-  #   assert_equal 'Belgium', @belgium.name
-  #   assert_equal 'Netherlands', @netherlands.name
-  #   assert_equal 'Kingdom of Belgium', @belgium.description
-  #   assert_equal 'Kingdom of the Netherlands', @netherlands.description
+  def test_method_generation
+    @country = Country.find_by_iso(:be)
 
-  #   # change language to dutch
-  #   Country.language = 'nl'
-  #   assert_equal 'België', @belgium.name
-  #   assert_equal 'Nederland', @netherlands.name
-  #   assert_equal 'Koninkrijk België', @belgium.description
-  #   assert_equal 'Koninkrijk der Nederlanden', @netherlands.description
+    refute_respond_to Country, :description
+    assert_respond_to @country, :description
+    assert_respond_to @country, :name
+    assert_respond_to @country, :slug
+  end
 
-  #   # change language to french
-  #   Country.language = 'fr'
-  #   assert_equal 'Belgique', @belgium.name
-  #   assert_equal 'Pays-Bas', @netherlands.name
-  #   assert_equal 'Royaume de Belgique', @belgium.description
-  #   assert_equal 'Royaume des Pays-Bas', @netherlands.description
+  def test_acts_as_translated_attributes
+    @belgium = Country.find_by_iso(:be)
+    @netherlands = Country.find_by_iso(:nl)
 
-  #   # change language to english
-  #   Country.language = 'en'
-  #   assert_equal 'Belgium', @belgium.name
-  #   assert_equal 'Netherlands', @netherlands.name
-  #   assert_equal 'Kingdom of Belgium', @belgium.description
-  #   assert_equal 'Kingdom of the Netherlands', @netherlands.description
-  # end
+    I18n.enforce_available_locales = false
 
-  # def test_class_helpers
-  #   @country = Country.first
+    I18n.locale = :nl
 
-  #   assert @country.translated_field_exists('name')
-  #   refute @country.translated_field_exists('position')
+    assert_equal 'België', @belgium.name
+    assert_equal 'Koninkrijk België', @belgium.description
+    assert_equal 'belgie', @belgium.slug
 
-  #   assert_equal %w(description_en description_fr description_nl name_en name_fr name_nl), @country.translated_fields_to_attributes
-  # end
+    assert_equal 'Nederland', @netherlands.name
+    assert_equal 'Koninkrijk der Nederlanden', @netherlands.description
+    assert_equal 'nederland', @netherlands.slug
+
+
+    I18n.locale = :fr
+
+    assert_equal 'Belgique', @belgium.name
+    assert_equal 'Royaume de Belgique', @belgium.description
+    assert_equal 'belgique', @belgium.slug
+
+    assert_equal 'Pays-Bas', @netherlands.name
+    assert_equal 'Royaume des Pays-Bas', @netherlands.description
+    assert_equal 'pays-bas', @netherlands.slug
+
+    I18n.locale = :en
+
+    assert_equal 'Belgium', @belgium.name
+    assert_equal 'Kingdom of Belgium', @belgium.description
+    assert_equal 'belgium', @belgium.slug
+
+    assert_equal 'Netherlands', @netherlands.name
+    assert_equal 'Kingdom of the Netherlands', @netherlands.description
+    assert_equal 'netherlands', @netherlands.slug
+  end
+
+  def test_acts_as_translated_attribute_defaults
+    @belgium = Country.find_by_iso(:be)
+    @netherlands = Country.find_by_iso(:nl)
+
+    I18n.enforce_available_locales = false
+
+    I18n.locale = :es
+
+    assert_equal 'België', @belgium.name
+    assert_equal 'Koninkrijk België', @belgium.description
+    assert_equal 'belgium', @belgium.slug
+
+    assert_equal 'Nederland', @netherlands.name
+    assert_equal 'Koninkrijk der Nederlanden', @netherlands.description
+    assert_equal 'netherlands', @netherlands.slug
+  end
 
 end
