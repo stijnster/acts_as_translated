@@ -1,6 +1,6 @@
 # ActsAsTranslated
 
-This acts_as extension allows easy attribute translation.
+This acts_as extension allows easy attribute translation. The gem uses the current I18n.locale to return the translated attribute.
 
 ## Examples
 
@@ -20,7 +20,7 @@ Create a class;
 
 ```
 class Country < ActiveRecord::Base
-  acts_as_translated :name #, :default => :nl
+  acts_as_translated :name # optional, pass in default fallback locale; default: :nl
 end
 ```
 
@@ -32,25 +32,14 @@ Use it in your views, controllers, ...
 <% end %>
 ```
 
-# Form Example
-
-Build a dynamic form that extends, based on the number of languages available;
-
-```
-<%= form_for @country do %>
-  ...
-  <% @country.translated_fields_to_attributes.each do |attribute| %>
-    <p><%= f.label attribute %><br/>
-      <%= f.text_field attribute %></p>
-    <% end %>
-  ...
-<% end %>
-```
-
-# Install
-
 In your bundler Gemfile
 
 ```
-gem 'acts_as_translated'
+gem 'acts_as_translated', '~> 1.0'
 ```
+
+## History
+
+I've started development on this gem in 2008, way before I18n was considered the de-facto standard gem for internationalising a Ruby or Ruby-on-Rails app.
+
+The gem has been available for a few years now and serves in various production code.
