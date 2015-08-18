@@ -16,6 +16,10 @@ module ActsAsTranslated
   module ClassMethods
 
     def acts_as_translated(*args, default: :en)
+
+      # Support old style coded array attributes
+      args = args.first if args.first.instance_of? Array
+
       @cached_translated_attributes ||= []
 
       class_eval do
