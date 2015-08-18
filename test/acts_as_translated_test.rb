@@ -56,6 +56,15 @@ class Country < ActiveRecord::Base
 
   acts_as_translated :name, :description, default: :nl
   acts_as_translated :slug
+  acts_as_translated :custom, default: :fr
+
+  def custom_fr
+    "Custom FR method"
+  end
+
+  def custom_es
+    "Custom ES method"
+  end
 end
 
 
@@ -198,6 +207,18 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 'Nederland', @netherlands.name
     assert_equal 'Koninkrijk der Nederlanden', @netherlands.description
     assert_equal 'netherlands', @netherlands.slug
+  end
+
+  def test_acts_as_translated_methods_with_defaults
+    @belgium = Country.find_by_iso(:be)
+
+    I18n.enforce_available_locales = false
+
+    I18n.locale = :nl
+    assert_equal 'Custom FR method', @belgium.custom
+
+    I18n.locale = :es
+    assert_equal 'Custom ES method', @belgium.custom
   end
 
 end
