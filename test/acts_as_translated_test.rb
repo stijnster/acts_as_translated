@@ -20,6 +20,7 @@ def setup_db
     ActiveRecord::Base.logger
     ActiveRecord::Schema.define(:version => 1) do
       create_table :countries do |t|
+        t.column :iso, :string, index: true, unique: true, null: false
         t.column :name_nl, :string
         t.column :name_fr, :string
         t.column :name_en, :string
@@ -80,13 +81,59 @@ class ActsAsTranslatedTest < Minitest::Test
     assert_equal 'Netherlands', Country.last.name_en
   end
 
-  def test_translated_fields
-    assert_instance_of Hash, Country.translated_attributes
-    assert_equal :nl, Country.translated_attributes[:name]
-    assert_equal :nl, Country.translated_attributes[:description]
-    assert_equal :en, Country.translated_attributes[:slug]
+  def test_acts_as_translated_attribute_presence
+    refute_respond_to Country.new, :acts_as_translated_attribute
+    assert_respond_to Country, :acts_as_translated_attribute
+
   end
 
+  def test_acts_as_translated_attribute_matches
+    @country = Country.find_by_iso(:be)
+
+    assert_equal 'België', Country.acts_as_translated_attribute(@country, 'name', 'nl')
+    assert_equal 'Belgique', Country.acts_as_translated_attribute(@country, 'name', 'fr')
+    assert_equal 'Royaume de Belgique', Country.acts_as_translated_attribute(@country, 'description', 'fr')
+
+    @country = Country.find_by_iso(:nl)
+
+    assert_equal 'Nederland', Country.acts_as_translated_attribute(@country, :name, :nl)
+    assert_equal 'Pays-Bas', Country.acts_as_translated_attribute(@country, :name, :fr)
+    assert_equal 'Kingdom of the Netherlands', Country.acts_as_translated_attribute(@country, 'description', :en)
+  end
+
+  def test_acts_as_translated_attribute_defaults
+    @country = Country.find_by_iso(:be)
+
+    assert_equal 'België', Country.acts_as_translated_attribute(@country, 'name', 'es', default: 'nl')
+    assert_equal 'Belgium', Country.acts_as_translated_attribute(@country, 'name', 'de')
+    assert_equal 'Royaume de Belgique', Country.acts_as_translated_attribute(@country, 'description', 'ch', default: 'fr')
+
+    @country = Country.find_by_iso(:nl)
+
+    assert_equal 'Nederland', Country.acts_as_translated_attribute(@country, :name, :es, default: :nl)
+    assert_equal 'Netherlands', Country.acts_as_translated_attribute(@country, :name, :de)
+    assert_equal 'Koninkrijk der Nederlanden', Country.acts_as_translated_attribute(@country, :description, :ch, default: :nl)
+  end
+
+  def test_acts_as_translated_attribute_no_default
+    @country = Country.find_by_iso(:be)
+
+    assert_raises NoMethodError do
+      Country.acts_as_translated_attribute(@country, 'name', 'es', default: 'es')
+    end
+
+    assert_raises NoMethodError do
+      Country.acts_as_translated_attribute(@country, :name, :es, default: :es)
+    end
+
+    assert_raises NoMethodError do
+      Country.acts_as_translated_attribute(@country, 'position', 'es')
+    end
+
+    assert_raises NoMethodError do
+      Country.acts_as_translated_attribute(@country, :position, :es)
+    end
+  end
   # def test_translated_attributes
   #   @belgium = Country.first
   #   @netherlands = Country.last

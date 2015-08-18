@@ -1,4 +1,5 @@
 belgium:
+  iso: be
   name_nl: België
   name_fr: Belgique
   name_en: Belgium
@@ -10,6 +11,7 @@ belgium:
   slug_en: belgium
   position: 1
 holland:
+  iso: nl
   name_nl: Nederland
   name_fr: Pays-Bas
   name_en: Netherlands
