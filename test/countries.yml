@@ -22,3 +22,15 @@ holland:
   slug_fr: pays-bas
   slug_en: netherlands
   position: 2
+france:
+  iso: fr
+  name_nl: Frankrijk
+  name_fr: France
+  name_en:
+  description_nl:
+  description_fr:
+  description_en:
+  slug_nl: frankrijk
+  slug_fr: france
+  slug_en:
+  position: 3

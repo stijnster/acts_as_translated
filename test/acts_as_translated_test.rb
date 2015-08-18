@@ -76,9 +76,10 @@ class ActsAsTranslatedTest < Minitest::Test
 	end
 
   def test_fixtures
-    assert_equal 2, Country.count
-    assert_equal 'Belgium', Country.first.name_en
-    assert_equal 'Netherlands', Country.last.name_en
+    assert_equal 3, Country.count
+    assert_equal 'Belgium', Country.find_by_iso(:be).name_en
+    assert_equal 'Netherlands', Country.find_by_iso(:nl).name_en
+    assert_equal 'France', Country.find_by_iso(:fr).name_fr
   end
 
   def test_acts_as_translated_attribute_presence
