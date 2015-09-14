@@ -5,6 +5,14 @@
 
 ActsAsTranslated is a gem for easy attribute translation. It works with localized versions of an attribute and switches between the localized version, using the I18n.locale setting.
 
+## Setup
+
+In your bundler Gemfile
+
+```
+gem 'acts_as_translated', '~> 1.0'
+```
+
 ## Usage
 
 Create localized attributes on your model by extending the attribute with the locale.
@@ -43,12 +51,6 @@ Use it in your views, controllers, ... Use the non-localized version of the attr
 <% if @country = Country.first %>
   <%= country.name %>
 <% end %>
-```
-
-In your bundler Gemfile
-
-```
-gem 'acts_as_translated', '~> 1.0'
 ```
 
 ### Multiple attributes
