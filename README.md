@@ -48,9 +48,7 @@ end
 Use it in your views, controllers, ... Use the non-localized version of the attribute (in this case "name").
 
 ```
-<% if @country = Country.first %>
-  <%= country.name %>
-<% end %>
+<%= @country.name %>
 ```
 
 ### Multiple attributes
