@@ -1,5 +1,6 @@
 # ActsAsTranslated
 
+[![Build Status](https://travis-ci.org/stijnster/acts_as_translated.svg?branch=master)](https://travis-ci.org/stijnster/acts_as_translated)
 [![Gem Version](https://badge.fury.io/rb/acts_as_translated.svg)](http://badge.fury.io/rb/acts_as_translated)
 
 This acts_as extension allows easy attribute translation. The gem uses the current I18n.locale to return the translated attribute.
