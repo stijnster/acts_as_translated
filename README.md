@@ -1,5 +1,7 @@
 # ActsAsTranslated
 
+[![Gem Version](https://badge.fury.io/rb/acts_as_translated@2x.png)](http://badge.fury.io/rb/acts_as_translated)
+
 This acts_as extension allows easy attribute translation. The gem uses the current I18n.locale to return the translated attribute.
 
 ## Examples
